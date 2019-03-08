@@ -1,0 +1,75 @@
+---
+title: "Introduction to R Markdown"
+author: 
+    name: "Jing Xu" 
+    affiliation: "Applied Bioinformatics (B330), DKFZ"
+    email: "jing.xu@dkfz.de"
+        
+date: "2019-03-08"
+output: BiocStyle::html_document
+
+---
+
+```{r setup, include=TRUE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# It's possible to change your working directory here
+#knitr::opts_knit$set(root.dir = 'Your working directory') 
+
+# load necessary packages in setup chunk
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("BiocStyle", version = "3.8")
+```
+
+# About R Markdown
+
+The document format "R Markdown" was first introduced in the `knitr` package. Markdown is a simple formatting syntax for authoring HTML, PDF, beamer presentation and MS Word documents. It also allows you to work with different languages like bash and python.
+
+*  You need to download and install R studio at <https://www.rstudio.com/products/rstudio/download/>.  
+* Install R markdown package by `install.packages("rmarkdown")`, in this file, we use the "BiocStyle html_document"" for a nice looking report, therefore we need to install the `BiocStyle` package from Bioconductor, see code chunk "setup"
+* Create a R markdown file from the top dropdown manual: File --> New file --> R Markdown  
+* Write all the text and code in the file, You can also include multiple languages in the RMD file including R, Python, bash and SQL.  
+* Create a code chunk by clicking the "Insert" button on the right corner, write your code and click "Run" or "Play" button to check the output in the current code chunk.
+* When you finish your writing, click the **Knit** button, a document will be generated that includes both content as well as the output of any embedded code chunks within the document.   
+
+R markdown allows you to document all details in the report to ensure reproducibility of your work. 
+
+## Check out the examples provided in the RMD template
+- You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+
+```
+
+- Including Plots
+
+You can also embed plots without showing the code, for example:
+
+```{r pressure, echo=FALSE, warning=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+# Objectives
+- Learn how to prepare different types of R Markdown files for various uses
+- Learn about writing and running R Markdown file from your assignment
+
+At the end of the course, you need to complete the programming assignment in a semi-prepared RMD file and run it to generate a HTML report. It is required to hand in this file to get credits for the course.  
+
+
+# More information: 
+- Check R Markdown manuals from R studio website <http://rmarkdown.rstudio.com>
+- Book: [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+- R Markdown cheet sheet: check your handouts or download it from [RMD cheatsheet2.0](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf) 
+
+
+# Document versions for reproducibility
+You need to know which versions of R and packages you used. Document the details in the file!
+```{r}
+sessionInfo()
+```
+

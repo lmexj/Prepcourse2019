@@ -1,0 +1,192 @@
+---
+title: "R objects"
+author: Jing Xu  [Postdoc, Applied Bioinformatics (B330), DKFZ]
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+    ioslides_presentation:
+    widescreen: true
+    smaller: true
+    mathjax: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## R objects (data types)
+
+- Everything is R is an object
+- Six R data types:
+   + **Vectors**: contain elements of one class
+   + **Lists**: contain elements of different classes
+   + **Matrices**: vectors with 2 dimension attributes, _n_ rows x _m_ columns
+   + **Arrays**: store data with > 2 dimensions. An array of dim(2,3,4) means 4 matrices each with 2 rows and 3 columns.
+   + **Factors**: categorical data that can be ordered or unordered
+   + **Data Frames**: most commonly used for storing tabular data, each column can be in different classes
+- You can find out the data type by R function: `class()`
+- Check data types of all columns in a dataframe: `str()`
+
+
+## Vectors
+- A vector can only contain obejcts of the same classes! If not, _coercion_ occurs, which may affect your analysis in later steps  
+    + **character**: "Name", "Grade" ... 
+    + **numeric**: real numbers, 1.6, 4, 50, -1, -20.8 ...
+    + **integer**: 1L, 2L ...
+    + **logical**: TRUE/FALSE
+    + **complex**: mixed data type
+
+- You can check if a variable is in a specific data type 
+`is.numeric()`, `is.integer()`, `is.factor()`, `is.character()` , `is.matrix()` etc.
+
+- Convert a vector to a different data type
+ `as.numeric()`, `as.character()`, `as.factor()`
+
+
+
+Create R objects -- numeric & integer vectors1
+========================================================
+```{r}
+x <- c(1:5); x; class(x); is.numeric(x)
+```
+
+***
+```{r}
+y <- c(1,2,3,4,5); y; class(y); is.numeric(y); is.integer(y)
+```
+
+
+Create R objects -- numeric & integer vectors2
+========================================================
+title: false
+There are numbers of ways to create a numeric vector to fit your needs:  
+For example, create numbers in sequence can be very useful in data table
+```{r}
+seq(1,3)
+seq(1,3, by=0.2)
+```
+
+You can also assign new values to an exisitng variable
+```{r}
+x <- c(1:10)
+x <- x[1:3];x
+```
+
+
+Create R objects -- numeric & integer vectors3
+========================================================
+title: false
+
+```{r}
+sample(1:1000,10)
+rep(1:3, 2)
+```
+
+
+__Task:__ What if you want to create replication of each number (a.k.a. '112233')? How about repeating the series of '112233' for four times? 
+
+
+Create R objects -- characters
+========================================================
+```{r}
+x <- c("male","female","male","female","male","male"); x
+x <- c("1","2","3"); y <- as.character(seq(1:3))
+x==y
+```
+However, if you convert something that R cannot understand:
+```{r}
+as.logical(x)
+x <- as.numeric(x)
+as.logical(x)
+```
+__Task:__ How about minus values and floating numbers? You can find it out by yourself. 
+
+
+Create R objects -- factors1
+========================================================
+- Factors are used for categorical values in either unordered or ordered way.
+- `read.table` function will read data in factors by default, one can avoid this by setting `stringsAsFactors=F` 
+- Factors can be required for some graphical and statisitcal funtions like `lm`, where the 1st level is the baseline level 
+- The order can be specified by parameter `level`
+```{r}
+factor(c("male","female","female","male"))
+factor(c("male","female","female","male"), levels = c("male", "female"))
+
+```
+
+
+Create R objects -- factors2
+========================================================
+- factor labels are self-describing, this can be useful in data grouping 
+```{r}
+Note1 <- factor(c(1.0,1.3, 1.5, 1.7,2.0));Note1 
+Note2 = factor(c(1.0,1.3, 1.5, 1.7,2.0), labels = c("Magna","Magna","Magna", "Gut", "Gut"));Note2
+par(mfrow=c(1,2))
+plot(Note1, main="factor with numbers")
+plot(Note2, main="factor with labels" )
+dev.off()
+```
+
+
+
+
+Missing values
+========================================================
+- Missing values are denoted by NA or NaN for q undefined mathematical operations
+- Use `is.na()` and `is.nan()` to identify missing values
+```{r}
+# create a vector with missing values
+x <- c(1,2, NA,10, NaN, 20, 50)
+is.na(x)
+is.nan(x)
+which(is.na(x))
+```
+
+
+Create R objects -- matrix
+========================================================
+```{r}
+x <- matrix(1:10, ncol = 5,nrow = 2)
+
+```
+
+Create R objects -- data frame
+========================================================
+```{r}
+x <- c("male","female","male","female","male","male"); x
+x <- factor(c("male","female","male","female","male","male")); x
+
+```
+
+
+
+Data QC: Vector comparison
+========================================================
+```{r} 
+# We can check whether two numeric vectors are the same by "=="
+x <- c(1L,2L,3L,5L)
+y <- c(1,2,3,5)
+x==y
+all(x==y)
+# What if we change something in y?
+y <- c(1,2,3,6)
+```
+
+-----------------------------------------------------------------------------------------
+# work from home 
+
+
+Part 2. Data Manipulation
+========================================================
+Main topics
+- Subsetting R objects
+- Explore data frames with `dplyr` package
+- Control structures
+
+
+
+Slide With Plot
+========================================================
+
+```{r, echo=FALSE}
+plot(cars)
+```
