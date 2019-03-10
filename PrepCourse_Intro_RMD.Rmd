@@ -20,6 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("BiocStyle", version = "3.8")
+library(BiocStyle)
 ```
 
 # About R Markdown
